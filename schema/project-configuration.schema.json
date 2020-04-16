@@ -1,0 +1,116 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://saitho.me/mackerel/project-configuration.schema.json",
+  "title": "Project Configuration",
+  "description": "Project configuration file written by Mackerel",
+  "type": "object",
+  "definitions": {
+    "docker-service": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "description": "Service name",
+          "type": "string"
+        },
+        "image": {
+          "description": "Name of Docker image",
+          "type": "string"
+        },
+        "expose_port": {
+          "description": "Port that receives web traffic (e.g. 80, 3000, 8080 for most applications). Only one in this file!",
+          "type": "integer"
+        },
+        "environment": {
+          "description": "Docker environment variables",
+          "type": "object"
+        },
+        "volumes": {
+          "description": "Docker volumes to be mounted",
+          "type": "array",
+          "items": { "type": "string" },
+          "minItems": 1
+        }
+      },
+      "additionalProperties": false,
+      "required": ["image"]
+    },
+    "web-capability": {
+      "type": "object",
+      "propertyNames": {
+        "pattern": "^php$"
+      },
+      "patternProperties": {
+        ".*": {
+          "type": "object",
+          "properties": {
+            "version": {}
+          },
+          "required": ["version"]
+        }
+      }
+    },
+    "docker-properties": {
+      "properties": {
+        "settings": {
+          "additionalProperties": false,
+          "properties": {
+            "services": {
+              "description": "List of Docker services to be started",
+              "type": "object",
+              "patternProperties": {
+                ".*": {
+                  "$ref": "#/definitions/docker-service"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "web-properties": {
+      "properties": {
+        "settings": {
+          "additionalProperties": false,
+          "properties": {
+            "public_path": {
+              "type": "string"
+            },
+            "capabilities": {
+              "$ref": "#/definitions/web-capability"
+            }
+          }
+        }
+      }
+    }
+  },
+  "properties": {
+    "domain": {
+      "description": "The domain from which the app can be reached",
+      "type": "string"
+    },
+    "deployment": {
+      "description": "Deployment configuration",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [ "docker", "web" ]
+        },
+        "settings": {
+          "type": "object"
+        }
+      },
+      "allOf": [
+        {
+          "if": {"properties": {"type": {"const": "docker"}}},
+          "then": { "$ref": "#/definitions/docker-properties" }
+        }, {
+          "if": {"properties": {"type": {"const": "web"}}},
+          "then": { "$ref": "#/definitions/web-properties" }
+        }
+      ],
+      "required": ["type"]
+    }
+  },
+  "required": ["domain"]
+}
