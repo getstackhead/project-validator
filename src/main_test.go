@@ -24,8 +24,8 @@ func collectYamlFiles(folder string) []string {
 	return files
 }
 
-func TestValidConfigurations(t *testing.T) {
-	Convey("test valid configurations", t, func() {
+func TestValidDdefinitions(t *testing.T) {
+	Convey("test valid definitions", t, func() {
 		for _, file := range collectYamlFiles("../examples/valid") {
 			Convey(fmt.Sprintf("file %s should validate", file), func() {
 				result, err := ValidateFile(file)
@@ -45,8 +45,8 @@ func ShouldNotValidate(actual interface{}, _ ...interface{}) string {
 	}
 }
 
-func TestInvalidConfigurations(t *testing.T) {
-	Convey("test invalid configurations", t, func() {
+func TestInvalidDefinitions(t *testing.T) {
+	Convey("test invalid definitions", t, func() {
 		for _, file := range collectYamlFiles("../examples/invalid") {
 			Convey(fmt.Sprintf("file %s should not validate", file), func() {
 				result, err := ValidateFile(file)

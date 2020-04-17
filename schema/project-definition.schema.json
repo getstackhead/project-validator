@@ -1,8 +1,8 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "http://saitho.me/mackerel/project-configuration.schema.json",
-  "title": "Project Configuration",
-  "description": "Project configuration file written by Mackerel",
+  "$id": "http://saitho.me/mackerel/project-definition.schema.json",
+  "title": "Project Definition",
+  "description": "Project definition file required by Mackerel Deployment",
   "type": "object",
   "definitions": {
     "docker-service": {

@@ -33,7 +33,7 @@ func ValidateFile(filePath string) (*gojsonschema.Result, error) {
 
 	_, filename, _, _ := runtime.Caller(0)
 	binDir, _ := filepath.Abs(filepath.Dir(filename))
-	schemaLoader := gojsonschema.NewReferenceLoader("file://" + filepath.Join(binDir, "..", "schema", "project-configuration.schema.json"))
+	schemaLoader := gojsonschema.NewReferenceLoader("file://" + filepath.Join(binDir, "..", "schema", "project-definition.schema.json"))
 
 	configData, err := ioutil.ReadFile(filePath)
 	if err != nil {
@@ -57,7 +57,7 @@ func ShouldValidate(actual interface{}, _ ...interface{}) string {
 	if result.Valid() == true {
 		return ""
 	}
-	errorMessage := fmt.Sprintf("The project configuration is not valid. see errors:")
+	errorMessage := fmt.Sprintf("The project definition is not valid. see errors:")
 
 	for _, desc := range result.Errors() {
 		if isInternalError(desc.Type()) {
@@ -82,7 +82,7 @@ func main() {
 
 	errorMessage := ShouldValidate(result)
 	if len(errorMessage) == 0 {
-		fmt.Println("The project configuration is valid")
+		fmt.Println("The project definition is valid")
 	} else {
 		fmt.Println(errorMessage)
 	}
