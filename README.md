@@ -37,6 +37,10 @@ composer require mackerelserver/project-validator
 
 Binary is located at `vendor/bin/project-validator`.
 
-### Planned packages
+### [NPM (NodeJS)](https://www.npmjs.com/package/@mackerelserver/project-validator)
 
-* NPM (NodeJS)
+```shell script
+npm i --save-dev @mackerelserver/project-validator
+```
+
+Binary is located at `./node_modules/.bin/project-validator`.
