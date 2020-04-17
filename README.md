@@ -29,8 +29,14 @@ pip install mackerel-project-validator
 
 Find the location of the package with `pip show mackerel-project-validator`. (Binary path as above.)
 
+### [Composer (PHP)](https://packagist.org/packages/mackerel/project-validator)
+
+```shell script
+composer require mackerelserver/project-validator
+```
+
+Binary is located at `vendor/bin/project-validator`.
+
 ### Planned packages
 
-* pypi (Python)
-* Composer (PHP)
 * NPM (NodeJS)
