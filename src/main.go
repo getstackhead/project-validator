@@ -5,6 +5,7 @@ import (
 	"io/ioutil"
 	"os"
 	"path/filepath"
+	"runtime"
 
 	"github.com/ghodss/yaml"
 	"github.com/xeipuuv/gojsonschema"
@@ -26,42 +27,63 @@ func isInternalError(errorType string) bool {
 	}
 }
 
-func main() {
-	if len(os.Args) < 2 {
-		panic("Missing argument. Set the file out want to validate as first command argument.")
-	}
-	var fileName = os.Args[1]
+// ValidateFile validates the contents of filePath with the schema
+func ValidateFile(filePath string) (*gojsonschema.Result, error) {
 	var err error
 
-	binDir, _ := filepath.Abs(filepath.Dir(os.Args[0]))
+	_, filename, _, _ := runtime.Caller(0)
+	binDir, _ := filepath.Abs(filepath.Dir(filename))
 	schemaLoader := gojsonschema.NewReferenceLoader("file://" + filepath.Join(binDir, "..", "schema", "project-configuration.schema.json"))
 
-	configData, err := ioutil.ReadFile(fileName)
+	configData, err := ioutil.ReadFile(filePath)
 	if err != nil {
-		panic("read config file: " + err.Error())
+		return nil, err
 	}
 
 	// YAML to JSON
 	configJson, err := yaml.YAMLToJSON(configData)
 	if err != nil {
-		panic("yaml to json: " + err.Error())
+		return nil, err
 	}
 	documentLoader := gojsonschema.NewBytesLoader(configJson)
 
-	result, err := gojsonschema.Validate(schemaLoader, documentLoader)
+	return gojsonschema.Validate(schemaLoader, documentLoader)
+}
+
+// ShouldValidate validates result
+// signature uses interface{} and unused paremter because this method is also used in tests with Convey
+func ShouldValidate(actual interface{}, _ ...interface{}) string {
+	result := actual.(*gojsonschema.Result)
+	if result.Valid() == true {
+		return ""
+	}
+	errorMessage := fmt.Sprintf("The project configuration is not valid. see errors:")
+
+	for _, desc := range result.Errors() {
+		if isInternalError(desc.Type()) {
+			continue
+		}
+		errorMessage += fmt.Sprintf("- %s\n", desc)
+	}
+	return errorMessage
+}
+
+func main() {
+	if len(os.Args) < 2 {
+		panic("Missing argument. Set the file out want to validate as first command argument.")
+	}
+	var filePath = os.Args[1]
+
+	result, err := ValidateFile(filePath)
+
 	if err != nil {
 		panic(err.Error())
 	}
 
-	if result.Valid() {
-		fmt.Printf("The document is valid\n")
+	errorMessage := ShouldValidate(result)
+	if len(errorMessage) == 0 {
+		fmt.Println("The project configuration is valid")
 	} else {
-		fmt.Printf("The document is not valid. see errors:\n")
-		for _, desc := range result.Errors() {
-			if isInternalError(desc.Type()) {
-				continue
-			}
-			fmt.Printf("- %s\n", desc)
-		}
+		fmt.Println(errorMessage)
 	}
 }
