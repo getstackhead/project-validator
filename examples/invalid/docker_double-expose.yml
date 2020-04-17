@@ -1,0 +1,16 @@
+---
+domain: mydomain.com
+deployment:
+  type: docker
+  settings:
+    services:
+      app:
+        image: mackerelserver/mackerel-php-project-demo
+        expose_port: 8080
+        links:
+          - db
+      db:
+        image: mariadb:10.5
+        expose_port: 3306
+        environment:
+          MYSQL_ROOT_PASSWORD: example
