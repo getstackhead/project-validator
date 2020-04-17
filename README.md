@@ -27,7 +27,7 @@ In case you're looking for the source code of the validator, it's in src.
 pip install mackerel-project-validator
 ```
 
-Binary will be installed into `...`.
+Find the location of the package with `pip show mackerel-project-validator`. (Binary path as above.)
 
 ### Planned packages
 

@@ -1,2 +1,8 @@
 .idea
 *.iml
+
+# Python build folders
+build
+dist
+mackerel_project_validator.egg-info
+mackerel_project_validator
