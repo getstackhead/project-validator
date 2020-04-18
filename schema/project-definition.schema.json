@@ -16,10 +16,6 @@
           "description": "Name of Docker image",
           "type": "string"
         },
-        "expose_port": {
-          "description": "Port that receives web traffic (e.g. 80, 3000, 8080 for most applications). Only one in this file!",
-          "type": "integer"
-        },
         "environment": {
           "description": "Docker environment variables",
           "type": "object"
@@ -60,6 +56,20 @@
         "settings": {
           "additionalProperties": false,
           "properties": {
+            "expose": {
+              "type": "object",
+              "properties": {
+                "service": {
+                  "type": "string",
+                  "description": "Name of the service below that exposes the port"
+                },
+                "port": {
+                  "type": "integer",
+                  "description": "Port that receives web traffic (e.g. 80, 3000, 8080 for most applications)"
+                }
+              },
+              "required": ["service", "port"]
+            },
             "services": {
               "description": "List of Docker services to be started",
               "type": "object",

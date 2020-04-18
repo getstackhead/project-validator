@@ -2,13 +2,11 @@ name: Go
 
 on:
   push:
-    branches: [ master ]
-    paths:
-      - src
+    branches:
+    - master
   pull_request:
-    branches: [ master ]
-    paths:
-      - src
+    branches:
+    - master
 
 jobs:
 

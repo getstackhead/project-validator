@@ -4,7 +4,6 @@ deployment:
   type: docker
   settings:
     expose:
-      service: app
       port: 8080
     services:
       app:
@@ -13,5 +12,6 @@ deployment:
           - db
       db:
         image: mariadb:10.5
+        expose_port: 3306
         environment:
           MYSQL_ROOT_PASSWORD: example
