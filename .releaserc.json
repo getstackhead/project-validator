@@ -9,8 +9,7 @@
     [
       "@semantic-release/git",
       {"assets": ["package.json", "setup.py"]}
-    ],
-    "@qiwi/semantic-release-gh-pages-plugin"
+    ]
   ],
   "branches": [
     "master"
