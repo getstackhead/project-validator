@@ -42,3 +42,21 @@ jobs:
     - name: Test
       working-directory: src
       run: go test
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Setup node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      - name: PNPM install
+        run: npm i -g pnpm && pnpm i -P
+      - run: pnpm install
+      - run: mkdir -p docs
+      - name: Semantic Release Action
+        uses: saitho/semantic-release-action-pnpm@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
