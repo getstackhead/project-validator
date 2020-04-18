@@ -27,8 +27,8 @@ jobs:
           TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
           TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
         run: |
-          mkdir -p mackerel_project_validator/
-          touch mackerel_project_validator/__init__.py
-          cp -r bin mackerel_project_validator
+          mkdir -p stackhead_project_validator/
+          touch stackhead_project_validator/__init__.py
+          cp -r bin stackhead_project_validator
           python setup.py sdist bdist_wheel
           twine upload dist/*

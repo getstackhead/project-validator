@@ -4,16 +4,16 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="mackerel-project_validator",
+    name="stackhead-project_validator",
     version="0.0.1",
     author="Mario Lubenka",
     author_email="me@saitho.me",
-    description="Validate your Mackerel project definition files",
+    description="Validate your StackHead project definition files",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/mackerelserver/project-validator",
-    packages=['mackerel_project_validator'],
-    package_data={'mackerel_project_validator': ['bin/*', 'schema/*']},
+    url="https://github.com/getstackhead/project-validator",
+    packages=['stackhead_project_validator'],
+    package_data={'stackhead_project_validator': ['bin/*', 'schema/*']},
     classifiers=[
         "Environment :: Console",
         "Intended Audience :: Developers",

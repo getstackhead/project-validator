@@ -4,8 +4,8 @@
 # Python build folders
 build
 dist
-mackerel_project_validator.egg-info
-mackerel_project_validator
+stackhead_project_validator.egg-info
+stackhead_project_validator
 
 # NPM build folders
-mackerelserver-project-validator-*.tgz
+getstackhead-project-validator-*.tgz

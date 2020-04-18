@@ -1,4 +1,4 @@
-# Mackerel Project validator
+# StackHead Project validator
 
 ## Development
 

@@ -1,4 +1,4 @@
-module github.com/mackerelserver/project-validator
+module github.com/getstackhead/project-validator
 
 go 1.13
 

@@ -1,6 +1,6 @@
-# Mackerel Project validator
+# StackHead Project validator
 
-This tool validates your Mackerel project definition files.
+This tool validates your StackHead project definition files.
 
 The schema is provided as [JSON Schema](https://json-schema.org/).
 
@@ -21,26 +21,26 @@ In case you're looking for the source code of the validator, it's in src.
 ./bin/project-validator path/to/definition.yml
 ```
 
-### [PyPI (Python)](https://pypi.org/project/mackerel-project-validator)
+### [PyPI (Python)](https://pypi.org/project/stackhead-project-validator)
 
 ```shell script
-pip install mackerel-project-validator
+pip install stackhead-project-validator
 ```
 
-Find the location of the package with `pip show mackerel-project-validator`. (Binary path as above.)
+Find the location of the package with `pip show stackhead-project-validator`. (Binary path as above.)
 
-### [Composer (PHP)](https://packagist.org/packages/mackerel/project-validator)
+### [Composer (PHP)](https://packagist.org/packages/getstackhead/project-validator)
 
 ```shell script
-composer require mackerelserver/project-validator
+composer require getstackhead/project-validator
 ```
 
 Binary is located at `vendor/bin/project-validator`.
 
-### [NPM (NodeJS)](https://www.npmjs.com/package/@mackerelserver/project-validator)
+### [NPM (NodeJS)](https://www.npmjs.com/package/@getstackhead/project-validator)
 
 ```shell script
-npm i --save-dev @mackerelserver/project-validator
+npm i --save-dev @getstackhead/project-validator
 ```
 
 Binary is located at `./node_modules/.bin/project-validator`.

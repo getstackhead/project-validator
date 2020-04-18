@@ -1,6 +1,6 @@
 {
-    "name": "mackerelserver/project-validator",
-    "description": "Validate your project definition files",
+    "name": "getstackhead/project-validator",
+    "description": "Validate your StackHead project definition files",
     "bin": "bin/project-validator",
     "type": "library",
     "license": "GPL-2.0+",

@@ -1,10 +1,10 @@
 {
-  "name": "@mackerelserver/project-validator",
+  "name": "@getstackhead/project-validator",
   "version": "0.0.1",
   "description": "Validate your project definition files",
   "repository": {
     "type": "git",
-    "url": "git@github.com:mackerelserver/project-validator.git"
+    "url": "git@github.com:getstackhead/project-validator.git"
   },
   "author": "Mario Lubenka",
   "license": "GPL-2.0-or-later",
