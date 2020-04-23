@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="stackhead-project_validator",
-    version="1.0.0",
+    version="1.0.1",
     author="Mario Lubenka",
     author_email="me@saitho.me",
     description="Validate your StackHead project definition files",
