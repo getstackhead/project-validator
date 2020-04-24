@@ -5,6 +5,32 @@
   "description": "Project definition file required by StackHead Deployment",
   "type": "object",
   "definitions": {
+    "docker-volume": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "Volume type, determines the data folder",
+          "enum": [ "global", "local", "custom" ]
+        },
+        "src": {
+          "type": "string",
+          "description": "Path that is mounted into the container, relative from data folder"
+        },
+        "dest": {
+          "type": "string",
+          "description": "Target folder on the container"
+        },
+        "mode": {
+          "type": "string",
+          "description": "Permissions on the mounted volume - rw=readwrite (default), ro=readonly",
+          "enum": [ "rw", "ro" ]
+        }
+      },
+      "required": ["type", "dest"],
+      "if": {"properties": {"type": {"const": "custom"}}},
+      "then": {"required": ["src"]}
+    },
     "docker-service": {
       "type": "object",
       "properties": {
@@ -25,9 +51,9 @@
           "type": "object"
         },
         "volumes": {
-          "description": "Docker volumes to be mounted",
+          "description": "Volumes to be mounted",
           "type": "array",
-          "items": { "type": "string" },
+          "items": {"$ref": "#/definitions/docker-volume"},
           "minItems": 1
         },
         "volumes_from": {
