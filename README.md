@@ -11,7 +11,6 @@ The validator is a binary which is available for different package managers.
 You'll find example project 
 
 Find valid and invalid files in examples/ folder.
-(Note that examples/invalid/docker_double-expose.yml currently validates... :/)
 
 In case you're looking for the source code of the validator, it's in src.
 

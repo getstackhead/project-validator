@@ -9,6 +9,7 @@ deployment:
     services:
       app:
         image: getstackhead/project-demo-php
+        user: "1000:1000"
         links:
           - db
       db:
