@@ -57,7 +57,7 @@ func ShouldValidate(actual interface{}, _ ...interface{}) string {
 	if result.Valid() == true {
 		return ""
 	}
-	errorMessage := fmt.Sprintf("The project definition is not valid. see errors:")
+	errorMessage := fmt.Sprintf("The project definition is not valid. see errors:\n")
 
 	for _, desc := range result.Errors() {
 		if isInternalError(desc.Type()) {
