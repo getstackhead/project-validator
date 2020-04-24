@@ -16,6 +16,10 @@
           "description": "Name of Docker image",
           "type": "string"
         },
+        "user": {
+          "description": "User to be used inside container",
+          "type": "string"
+        },
         "environment": {
           "description": "Docker environment variables",
           "type": "object"
