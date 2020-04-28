@@ -7,7 +7,7 @@ deployment:
       service: app
       port: 8080
     services:
-      app:
+      - name: app
         image: getstackhead/project-demo-php
         user: "1000:1000"
         volumes:
@@ -23,7 +23,7 @@ deployment:
             mode: ro
         links:
           - db
-      db:
+      - name: db
         image: mariadb:10.5
         environment:
           MYSQL_ROOT_PASSWORD: example
