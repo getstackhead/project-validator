@@ -70,7 +70,7 @@
         }
       },
       "additionalProperties": false,
-      "required": ["image"]
+      "required": ["name", "image"]
     },
     "web-capability": {
       "type": "object",
@@ -108,11 +108,9 @@
             },
             "services": {
               "description": "List of Docker services to be started",
-              "type": "object",
-              "patternProperties": {
-                ".*": {
-                  "$ref": "#/definitions/docker-service"
-                }
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/docker-service"
               }
             }
           }
