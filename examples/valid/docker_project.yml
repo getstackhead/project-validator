@@ -6,6 +6,12 @@ deployment:
     expose:
       service: app
       port: 8080
+    registries:
+      - username: dockerhubuser
+        password: dockerhubpassword
+      - username: privateuser
+        password: privatepassword
+        url: https://myprivateregistry.tld
     services:
       - name: app
         image: getstackhead/project-demo-php

@@ -23,13 +23,33 @@
         },
         "mode": {
           "type": "string",
-          "description": "Permissions on the mounted volume - rw=readwrite (default), ro=readonly",
-          "enum": [ "rw", "ro" ]
+          "description": "Permissions on the mounted volume - rw=readwrite, ro=readonly",
+          "enum": [ "rw", "ro" ],
+          "default": "rw"
         }
       },
       "required": ["type", "dest"],
       "if": {"properties": {"type": {"const": "custom"}}},
       "then": {"required": ["src"]}
+    },
+    "docker-registry": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string",
+          "description": "Username for authenticating with the Docker registry"
+        },
+        "password": {
+          "type": "string",
+          "description": "Password for authenticating with the Docker registry"
+        },
+        "url": {
+          "type": "string",
+          "description": "URL to Docker registry (optional)",
+          "default": "https://index.docker.io/v1/"
+        }
+      },
+      "required": ["username", "password"]
     },
     "docker-service": {
       "type": "object",
@@ -105,6 +125,13 @@
                 }
               },
               "required": ["service", "port"]
+            },
+            "registries": {
+              "description": "Login data for private registries",
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/docker-registry"
+              }
             },
             "services": {
               "description": "List of Docker services to be started",
