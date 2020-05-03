@@ -5,7 +5,6 @@ import (
 	"io/ioutil"
 	"os"
 	"path/filepath"
-	"runtime"
 
 	"github.com/ghodss/yaml"
 	"github.com/xeipuuv/gojsonschema"
@@ -31,8 +30,7 @@ func isInternalError(errorType string) bool {
 func ValidateFile(filePath string) (*gojsonschema.Result, error) {
 	var err error
 
-	_, filename, _, _ := runtime.Caller(0)
-	binDir, _ := filepath.Abs(filepath.Dir(filename))
+	binDir, _ := filepath.Abs(filepath.Dir(os.Args[0]))
 	schemaLoader := gojsonschema.NewReferenceLoader("file://" + filepath.Join(binDir, "..", "schema", "project-definition.schema.json"))
 
 	configData, err := ioutil.ReadFile(filePath)
