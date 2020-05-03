@@ -82,8 +82,14 @@ func main() {
 
 	errorMessage := ShouldValidate(result)
 	if len(errorMessage) == 0 {
-		fmt.Println("The project definition is valid")
+		_, err = fmt.Fprintln(os.Stderr, "The project definition is valid")
 	} else {
-		fmt.Println(errorMessage)
+		_, err = fmt.Fprintln(os.Stderr, errorMessage)
+		os.Exit(1)
 	}
+
+	if err != nil {
+		panic(err.Error())
+	}
+	os.Exit(0)
 }
