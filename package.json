@@ -1,7 +1,7 @@
 {
   "name": "@getstackhead/project-validator",
   "version": "2.0.0",
-  "description": "Validate your project definition files",
+  "private": true,
   "repository": {
     "type": "git",
     "url": "git@github.com:getstackhead/project-validator.git"
@@ -13,14 +13,11 @@
   "devDependencies": {
     "semantic-release": "^16.0.1",
     "@semantic-release/commit-analyzer": "^7.0.0",
-    "@semantic-release/exec": "^4.0.0",
-    "@semantic-release/git": "^8.0.0",
     "@semantic-release/github": "^6.0.0",
     "@semantic-release/release-notes-generator": "^7.3.0",
     "commitizen": "^4.0.3",
     "cz-conventional-changelog": "^3.0.2"
   },
   "author": "Mario Lubenka",
-  "license": "GPL-2.0-or-later",
-  "bin": "bin/project-validator"
+  "license": "GPL-2.0-or-later"
 }
