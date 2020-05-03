@@ -1,159 +1,38 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "http://saitho.me/getstackhead/project-definition.schema.json",
+  "$id": "http://stackhead.io/schemas/project-definition.sample.json",
   "title": "Sample definition",
-  "description": "Project definition file required by StackHead Deployment",
+  "description": "This is NOT the actual schema for project definitions, just a sample for testing",
   "type": "object",
   "definitions": {
-    "docker-volume": {
-      "type": "object",
-      "properties": {
-        "type": {
-          "type": "string",
-          "description": "Volume type, determines the data folder",
-          "enum": [ "global", "local", "custom" ]
-        },
-        "src": {
-          "type": "string",
-          "description": "Path that is mounted into the container, relative from data folder"
-        },
-        "dest": {
-          "type": "string",
-          "description": "Target folder on the container"
-        },
-        "mode": {
-          "type": "string",
-          "description": "Permissions on the mounted volume - rw=readwrite, ro=readonly",
-          "enum": [ "rw", "ro" ],
-          "default": "rw"
-        }
-      },
-      "required": ["type", "dest"],
-      "if": {"properties": {"type": {"const": "custom"}}},
-      "then": {"required": ["src"]}
-    },
-    "docker-registry": {
-      "type": "object",
-      "properties": {
-        "username": {
-          "type": "string",
-          "description": "Username for authenticating with the Docker registry"
-        },
-        "password": {
-          "type": "string",
-          "description": "Password for authenticating with the Docker registry"
-        },
-        "url": {
-          "type": "string",
-          "description": "URL to Docker registry (optional)",
-          "default": "https://index.docker.io/v1/"
-        }
-      },
-      "required": ["username", "password"]
-    },
-    "docker-service": {
-      "type": "object",
-      "properties": {
-        "name": {
-          "description": "Service name",
-          "type": "string"
-        },
-        "image": {
-          "description": "Name of Docker image",
-          "type": "string"
-        },
-        "user": {
-          "description": "User to be used inside container",
-          "type": "string"
-        },
-        "environment": {
-          "description": "Docker environment variables",
-          "type": "object"
-        },
-        "volumes": {
-          "description": "Volumes to be mounted",
-          "type": "array",
-          "items": {"$ref": "#/definitions/docker-volume"},
-          "minItems": 1
-        },
-        "volumes_from": {
-          "description": "Use volumes from given services",
-          "type": "array",
-          "items": { "type": "string" },
-          "minItems": 1
-        },
-        "links": {
-          "description": "Links to other services",
-          "type": "array",
-          "items": { "type": "string" },
-          "minItems": 1
-        }
-      },
-      "additionalProperties": false,
-      "required": ["name", "image"]
-    },
-    "web-capability": {
-      "type": "object",
-      "propertyNames": {
-        "pattern": "^php$"
-      },
-      "patternProperties": {
-        ".*": {
-          "type": "object",
-          "properties": {
-            "version": {}
-          },
-          "required": ["version"]
-        }
-      }
-    },
-    "docker-properties": {
+    "enum1-properties": {
       "properties": {
         "settings": {
           "additionalProperties": false,
           "properties": {
-            "expose": {
+            "propContainer": {
               "type": "object",
               "properties": {
-                "service": {
-                  "type": "string",
-                  "description": "Name of the service below that exposes the port"
+                "prop1": {
+                  "type": "string"
                 },
-                "port": {
-                  "type": "integer",
-                  "description": "Port that receives web traffic (e.g. 80, 3000, 8080 for most applications)"
+                "prop2": {
+                  "type": "integer"
                 }
               },
-              "required": ["service", "port"]
-            },
-            "registries": {
-              "description": "Login data for private registries",
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/docker-registry"
-              }
-            },
-            "services": {
-              "description": "List of Docker services to be started",
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/docker-service"
-              }
+              "required": ["prop1", "prop2"]
             }
           }
         }
       }
     },
-    "web-properties": {
+    "enum2-properties": {
       "properties": {
         "settings": {
           "additionalProperties": false,
           "properties": {
-            "public_path": {
+            "optionalString": {
               "type": "string"
-            },
-            "capabilities": {
-              "$ref": "#/definitions/web-capability"
             }
           }
         }
@@ -161,17 +40,16 @@
     }
   },
   "properties": {
-    "domain": {
-      "description": "The domain from which the app can be reached",
+    "name": {
       "type": "string"
     },
-    "deployment": {
+    "settings": {
       "description": "Deployment configuration",
       "type": "object",
       "properties": {
         "type": {
           "type": "string",
-          "enum": [ "docker", "web" ]
+          "enum": [ "enum1", "enum2" ]
         },
         "settings": {
           "type": "object"
@@ -179,15 +57,15 @@
       },
       "allOf": [
         {
-          "if": {"properties": {"type": {"const": "docker"}}},
-          "then": { "$ref": "#/definitions/docker-properties" }
+          "if": {"properties": {"type": {"const": "enum1"}}},
+          "then": { "$ref": "#/definitions/enum1-properties" }
         }, {
-          "if": {"properties": {"type": {"const": "web"}}},
-          "then": { "$ref": "#/definitions/web-properties" }
+          "if": {"properties": {"type": {"const": "enum2"}}},
+          "then": { "$ref": "#/definitions/enum2-properties" }
         }
       ],
       "required": ["type"]
     }
   },
-  "required": ["domain"]
+  "required": ["name"]
 }
